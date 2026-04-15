@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash
-import mysql.connector
+import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
 import smtplib
@@ -9,12 +9,9 @@ app = Flask(__name__)
 app.secret_key = "secret123"
 
 # ---------------- DATABASE ----------------
-con = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="171004",
-    database="notesdb"
-)
+con = sqlite3.connect('notes.db', check_same_thread=False)
+con.row_factory = sqlite3.Row  # allows dict-like access
+
 
 otp_store = {}
 
@@ -43,7 +40,7 @@ def login():
         password = request.form['password']
 
         cursor = con.cursor()
-        cursor.execute("SELECT * FROM users WHERE username=%s", (username,))
+        cursor.execute("SELECT * FROM users WHERE username=?", (username,))
         user = cursor.fetchone()
 
         if user and check_password_hash(user[3], password):
@@ -67,7 +64,7 @@ def register():
 
         cursor = con.cursor()
         cursor.execute(
-            "INSERT INTO users(username,email,password) VALUES(%s,%s,%s)",
+            "INSERT INTO users(username,email,password) VALUES(?,?,?)",
             (username,email,password)
         )
         con.commit()
@@ -84,19 +81,19 @@ def dashboard():
     if 'user_id' not in session:
         return redirect('/')
 
-    cursor = con.cursor(dictionary=True)
+    cursor = con.cursor()
 
     search = request.args.get('search')   # ✅ FIXED
 
     if search:
         query = f"%{search}%"
         cursor.execute(
-            "SELECT * FROM notes WHERE user_id=%s AND (LOWER(title) LIKE LOWER(%s)) ORDER BY id DESC",
+            "SELECT * FROM notes WHERE user_id=? AND (LOWER(title) LIKE LOWER(?)) ORDER BY id DESC",
             (session['user_id'], query)
         )
     else:
         cursor.execute(
-            "SELECT * FROM notes WHERE user_id=%s ORDER BY id DESC",
+            "SELECT * FROM notes WHERE user_id=? ORDER BY id DESC",
             (session['user_id'],)
         )
 
@@ -118,9 +115,9 @@ def addnote():
 
         cursor = con.cursor()
         cursor.execute(
-            "INSERT INTO notes(title,content,created_at,user_id) VALUES(%s,%s,NOW(),%s)",
-            (title, content, session['user_id'])
-        )
+    "INSERT INTO notes(title, content, created_at, user_id) VALUES(?, ?, CURRENT_TIMESTAMP, ?)",
+    (title, content, session['user_id'])
+)
         con.commit()
         cursor.close()
 
@@ -137,9 +134,9 @@ def viewall():
         flash("Please login first!", "warning")
         return redirect('/')
 
-    cursor = con.cursor(dictionary=True)
+    cursor = con.cursor()
     cursor.execute(
-        "SELECT * FROM notes WHERE user_id=%s",
+        "SELECT * FROM notes WHERE user_id=?",
         (session['user_id'],)
     )
     notes = cursor.fetchall()
@@ -150,8 +147,8 @@ def viewall():
 # ---------------- VIEW ONE NOTE ----------------
 @app.route('/viewnotes/<int:id>')
 def viewnote(id):
-    cursor = con.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM notes WHERE id=%s", (id,))
+    cursor = con.cursor()
+    cursor.execute("SELECT * FROM notes WHERE id=?", (id,))
     note = cursor.fetchone()
 
     return render_template("viewnote.html", note=note)
@@ -160,14 +157,14 @@ def viewnote(id):
 # ---------------- UPDATE NOTE ----------------
 @app.route('/updatenote/<int:id>', methods=['GET','POST'])
 def updatenote(id):
-    cursor = con.cursor(dictionary=True)
+    cursor = con.cursor()
 
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
 
         cursor.execute(
-            "UPDATE notes SET title=%s, content=%s WHERE id=%s",
+            "UPDATE notes SET title=?, content=? WHERE id=?",
             (title, content, id)
         )
         con.commit()
@@ -175,7 +172,7 @@ def updatenote(id):
         flash("Note updated successfully!", "info")
         return redirect('/viewall')
 
-    cursor.execute("SELECT * FROM notes WHERE id=%s", (id,))
+    cursor.execute("SELECT * FROM notes WHERE id=?", (id,))
     note = cursor.fetchone()
 
     return render_template("edit.html", note=note)
@@ -185,7 +182,7 @@ def updatenote(id):
 @app.route('/deletenote/<int:id>')
 def deletenote(id):
     cursor = con.cursor()
-    cursor.execute("DELETE FROM notes WHERE id=%s", (id,))
+    cursor.execute("DELETE FROM notes WHERE id=?", (id,))
     con.commit()
 
     flash("Note deleted successfully!", "danger")
@@ -206,8 +203,8 @@ def forgot():
     if request.method == 'POST':
         email = request.form['email']
 
-        cursor = con.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        cursor = con.cursor()
+        cursor.execute("SELECT * FROM users WHERE email=?", (email,))
         user = cursor.fetchone()
 
         if user:
@@ -253,7 +250,7 @@ def reset_password():
 
         cursor = con.cursor()
         cursor.execute(
-            "UPDATE users SET password=%s WHERE email=%s",
+            "UPDATE users SET password=? WHERE email=?",
             (new_password, email)
         )
         con.commit()
@@ -294,7 +291,7 @@ Message:
 
         msg = MIMEText(body)
         msg["Subject"] = "Contact Form"
-        msg["From"] = "narendralenka553@gmial.com"
+        msg["From"] = email
         msg["To"] = "lenkanarendra536@gmail.com"
 
         server = smtplib.SMTP("smtp.gmail.com", 587)
@@ -303,7 +300,9 @@ Message:
         server.send_message(msg)
         server.quit()
 
-        return "Message Sent Successfully"
+        # ✅ Flash message instead of plain text
+        flash("Message sent successfully!", "success")
+        return redirect("/contact")
 
     return render_template("contact.html")
 
