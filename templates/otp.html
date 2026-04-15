@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP | Notes Management System</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Layout Fix */
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #198754, #157347);
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            width: 35px;
+            margin-right: 10px;
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin-left: 15px;
+        }
+
+        .nav-link:hover {
+            color: #dcdcdc !important;
+        }
+
+        /* Card */
+        .otp-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .otp-card h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .otp-input {
+            letter-spacing: 10px;
+            font-size: 22px;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .btn-success {
+            border-radius: 8px;
+            padding: 10px;
+            font-weight: 500;
+        }
+
+        .btn-success:hover {
+            background-color: #146c43;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="https://cdn-icons-png.flaticon.com/512/5063/5063397.png" alt="logo">
+                Notes Management
+            </a>
+
+            <div class="ms-auto">
+                <a class="nav-link d-inline" href="/">Home</a>
+                <a class="nav-link d-inline" href="/about">About</a>
+                <a class="nav-link d-inline" href="/contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="container mt-5">
+            <div class="col-md-4 mx-auto">
+                <div class="otp-card">
+                    <h3>Verify OTP</h3>
+
+                    <p class="text-muted mb-4">
+                        Enter the OTP sent to your email
+                    </p>
+
+                    <form method="POST">
+                        <input type="text" name="otp" maxlength="6"
+                               class="form-control mb-3 otp-input"
+                               placeholder="------" required>
+
+                        <button class="btn btn-success w-100">Verify OTP</button>
+                    </form>
+
+                    <p class="mt-3">
+                        Didn’t receive OTP? <a href="/forgot">Resend</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-success text-white">
+        <div class="container text-center p-3">
+
+            <p class="mb-1">Manage your notes securely and efficiently</p>
+            <small>© 2026 | Developed by You using Flask & MySQL</small>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>

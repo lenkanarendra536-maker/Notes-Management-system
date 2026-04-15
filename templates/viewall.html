@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Notes | Notes Management System</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: linear-gradient(to right, #eef2f7, #f8f9fa);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Layout Fix */
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #0d6efd, #0a58ca);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            width: 35px;
+            margin-right: 10px;
+        }
+
+        .nav-link {
+            color: white !important;
+            margin-left: 20px;
+        }
+
+        /* Card */
+        .note-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .note-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .note-content {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 10px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        .note-content::after {
+            content: "...";
+        }
+
+        .note-date {
+            font-size: 12px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        .btn-sm {
+            border-radius: 6px;
+        }
+
+        footer {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">
+                <img src="https://cdn-icons-png.flaticon.com/512/5063/5063397.png">
+                Notes Management System
+            </a>
+
+            <div class="ms-auto">
+                <a class="nav-link d-inline" href="/dashboard">Dashboard</a>
+                <a class="nav-link d-inline" href="/addnote">Add Notes</a>
+                <a class="nav-link d-inline text-warning" href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="container mt-5">
+            <h3 class="mb-4">Your Notes</h3>
+
+            {% if notes %}
+            <div class="row g-4">
+
+                {% for note in notes %}
+                <div class="col-md-4">
+                    <div class="note-card">
+
+                        <div class="note-title">
+                            {{ note.title }}
+                        </div>
+
+                        <div class="note-content">
+                            {{ note.content }}
+                        </div>
+
+                        <div class="note-date">
+                            {{ note.created_at }}
+                        </div>
+
+                        <div class="mt-3">
+                            <a href="/viewnotes/{{ note.id }}" class="btn btn-info btn-sm text-white">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a href="/updatenote/{{ note.id }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <a href="/deletenote/{{ note.id }}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+            <div class="text-center mt-5">
+                <p class="text-muted">No notes available</p>
+                <a href="/addnote" class="btn btn-primary">Create your first note</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white">
+        <div class="container text-center p-3">
+
+            <p class="mb-1">Manage your notes securely and efficiently</p>
+            <small>© 2026 | Developed by You using Flask & MySQL</small>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
