@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Notes Management System</title>
 
     <!-- Bootstrap -->
@@ -32,6 +33,7 @@
             flex: 1;
         }
 
+        /* Navbar */
         .navbar {
             background: linear-gradient(90deg, #0d6efd, #0a58ca);
             padding: 12px 0;
@@ -55,6 +57,7 @@
             margin-left: 20px;
         }
 
+        /* Sections */
         .welcome-box {
             text-align: center;
             margin-top: 50px;
@@ -93,6 +96,112 @@
             color: gray;
             margin-top: 10px;
         }
+
+        footer {
+            margin-top: 0;
+        }
+
+        /* 🔷 Responsive */
+
+        /* Tablet */
+        @media (max-width: 992px) {
+            .nav-link {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            .action-card {
+                padding: 25px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            .navbar {
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .ms-auto {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: block !important;
+                margin: 8px 0;
+            }
+
+            /* Search bar stack */
+            form.d-flex {
+                flex-direction: column;
+            }
+
+            form.d-flex input {
+                margin-bottom: 10px;
+            }
+
+            /* Notes grid */
+            .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            /* Action cards */
+            .col-md-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .welcome-box {
+                margin-top: 30px;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 576px) {
+
+            .note-card {
+                padding: 15px;
+            }
+
+            .note-content {
+                font-size: 13px;
+            }
+
+            .action-card {
+                padding: 20px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
+
+        /* Extra Small */
+        @media (max-width: 400px) {
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand img {
+                width: 28px;
+            }
+        }
     </style>
 </head>
 
@@ -116,13 +225,13 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Content -->
     <div class="content mb-5">
 
         <div class="container mt-4">
             <h4 class="mb-3">Your Notes</h4>
 
-            <!-- 🔍 SEARCH BAR (FIXED) -->
+            <!-- Search -->
             <form method="GET" action="/dashboard" class="d-flex mb-4">
                 <input type="text" name="search"
                        value="{{ request.args.get('search','') }}"
@@ -137,7 +246,7 @@
             <div class="row g-4">
 
                 {% for note in notes %}
-                <div class="col-md-4 d-flex">
+                <div class="col-md-4 col-sm-6 d-flex">
                     <div class="note-card w-100">
 
                         <h5>{{ note.title }}</h5>
@@ -150,7 +259,7 @@
                             {{ note.created_at }}
                         </small>
 
-                        <div class="mt-auto d-flex gap-2 pt-3">
+                        <div class="mt-auto d-flex gap-2 pt-3 flex-wrap">
                             <a href="/viewnotes/{{ note.id }}" class="btn btn-primary btn-sm">View</a>
                             <a href="/updatenote/{{ note.id }}" class="btn btn-warning btn-sm">Edit</a>
                             <a href="/deletenote/{{ note.id }}" class="btn btn-danger btn-sm">Delete</a>
@@ -170,7 +279,7 @@
             {% endif %}
         </div>
 
-        <!-- Welcome Section -->
+        <!-- Welcome -->
         <div class="container">
             <div class="welcome-box">
                 <h2>Welcome to Dashboard 🎉</h2>
@@ -179,7 +288,7 @@
 
             <div class="row g-4 justify-content-center">
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="action-card">
                         <i class="fas fa-plus-circle text-primary"></i>
                         <h5>Add Note</h5>
@@ -188,7 +297,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="action-card">
                         <i class="fas fa-book text-info"></i>
                         <h5>View Notes</h5>
@@ -197,7 +306,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="action-card">
                         <i class="fas fa-sign-out-alt text-danger"></i>
                         <h5>Logout</h5>

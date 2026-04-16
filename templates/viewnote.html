@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Note | Notes Management System</title>
 
     <!-- Bootstrap -->
@@ -93,6 +94,75 @@
         footer {
             margin-top: 0;
         }
+
+        /* =========================
+           RESPONSIVE MEDIA QUERIES
+           ========================= */
+
+        /* Tablets */
+        @media (max-width: 992px) {
+            .nav-link {
+                margin-left: 10px;
+            }
+
+            .note-container {
+                padding: 25px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ms-auto {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .nav-link {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .col-md-8 {
+                width: 100%;
+            }
+
+            .note-container {
+                padding: 20px;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .note-title {
+                font-size: 20px;
+            }
+
+            .note-date {
+                font-size: 12px;
+            }
+
+            .note-content {
+                font-size: 14px;
+            }
+
+            .btn-secondary {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -145,7 +215,6 @@
     <!-- Footer -->
     <footer class="bg-primary text-white">
         <div class="container text-center p-3">
-            
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>

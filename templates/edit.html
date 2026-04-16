@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Note | Notes Management System</title>
 
     <!-- Bootstrap -->
@@ -10,7 +11,6 @@
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
     <style>
         html, body {
             height: 100%;
@@ -22,7 +22,6 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Layout Fix */
         .wrapper {
             min-height: 100%;
             display: flex;
@@ -83,7 +82,7 @@
             resize: none;
         }
 
-        .btn-warning {
+        .btn-warning, .btn-secondary {
             border-radius: 8px;
             padding: 10px;
             font-weight: 500;
@@ -93,14 +92,112 @@
             background-color: #d39e00;
         }
 
-        .btn-secondary {
-            border-radius: 8px;
-            padding: 10px;
-            font-weight: 500;
-        }
-
         footer {
             margin-top: 0;
+        }
+
+        /* 🔷 Responsive */
+
+        /* Tablet */
+        @media (max-width: 992px) {
+            .form-card {
+                padding: 25px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            .navbar {
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .ms-auto {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: block !important;
+                margin: 8px 0;
+            }
+
+            .container.mt-5 {
+                margin-top: 20px !important;
+                padding: 0 10px;
+            }
+
+            .form-card {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .form-title {
+                font-size: 20px;
+            }
+
+            .btn-warning,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 576px) {
+
+            .form-card {
+                padding: 15px;
+            }
+
+            .form-title {
+                font-size: 18px;
+            }
+
+            .form-control {
+                font-size: 14px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
+
+        /* Extra Small */
+        @media (max-width: 400px) {
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand img {
+                width: 28px;
+            }
+
+            .form-title {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -125,7 +222,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Content -->
     <div class="content">
         <div class="container mt-5">
             <div class="col-md-6 mx-auto">
@@ -159,7 +256,6 @@
     <!-- Footer -->
     <footer class="bg-warning text-dark">
         <div class="container text-center p-3">
-
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>

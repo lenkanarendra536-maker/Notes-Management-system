@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password | Notes Management System</title>
 
     <!-- Bootstrap -->
@@ -102,6 +103,81 @@
         footer {
             margin-top: 0;
         }
+
+        /* =========================
+           RESPONSIVE MEDIA QUERIES
+           ========================= */
+
+        /* Tablets */
+        @media (max-width: 992px) {
+            .reset-card {
+                padding: 30px;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+            }
+        }
+
+        /* Mobile Devices */
+        @media (max-width: 768px) {
+            .reset-card {
+                padding: 25px;
+            }
+
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ms-auto {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .nav-link {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .col-md-5 {
+                width: 100%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .reset-card {
+                padding: 20px;
+            }
+
+            .reset-card h3 {
+                font-size: 20px;
+            }
+
+            .form-control {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .btn-warning {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -163,7 +239,6 @@
     <!-- Footer -->
     <footer class="bg-warning text-dark">
         <div class="container text-center p-3">
-
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>

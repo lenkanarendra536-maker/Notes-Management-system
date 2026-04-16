@@ -103,6 +103,122 @@
         footer {
             margin-top: 0;
         }
+
+        /* 🔷 Responsive Design */
+
+        /* Tablets */
+        @media (max-width: 992px) {
+            .about-container {
+                margin-top: 40px;
+            }
+
+            .about-card {
+                padding: 25px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            .navbar {
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .ms-auto {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: block !important;
+                margin: 8px 0;
+            }
+
+            .about-container {
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+
+            .about-card {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .about-card h2 {
+                font-size: 22px;
+            }
+
+            .about-card h5 {
+                font-size: 16px;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 576px) {
+
+            .about-card {
+                padding: 15px;
+            }
+
+            .about-card h2 {
+                font-size: 20px;
+            }
+
+            .about-card p,
+            .about-card li {
+                font-size: 14px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
+
+        /* Extra Small */
+        @media (max-width: 400px) {
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand img {
+                width: 28px;
+            }
+
+            .about-card h2 {
+                font-size: 18px;
+            }
+
+            .about-card h5 {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -191,7 +307,6 @@
     <!-- 🔻 Footer -->
     <footer class="bg-primary text-white">
         <div class="container text-center p-3">
-            
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>

@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Notes Management System</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
     <style>
         html, body {
             height: 100%;
@@ -20,7 +20,6 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Layout Fix */
         .wrapper {
             min-height: 100%;
             display: flex;
@@ -97,13 +96,115 @@
             text-decoration: underline;
         }
 
-        /* Flash Message Animation */
         #flash-msg {
             transition: opacity 0.5s ease;
         }
 
         footer {
             margin-top: 0;
+        }
+
+        /* 🔷 Responsive */
+
+        /* Tablet */
+        @media (max-width: 992px) {
+            .login-card {
+                padding: 25px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            .navbar {
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .ms-auto {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: block !important;
+                margin: 8px 0;
+            }
+
+            .container.mt-5 {
+                margin-top: 20px !important;
+                padding: 0 10px;
+            }
+
+            .login-card {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .login-card h3 {
+                font-size: 20px;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 576px) {
+
+            .login-card {
+                padding: 15px;
+            }
+
+            .login-card h3 {
+                font-size: 18px;
+            }
+
+            .form-control {
+                font-size: 14px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
+
+        /* Extra Small */
+        @media (max-width: 400px) {
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand img {
+                width: 28px;
+            }
+
+            .login-card h3 {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -128,7 +229,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Content -->
     <div class="content">
         <div class="container mt-5">
             <div class="col-md-4 mx-auto">
@@ -172,7 +273,6 @@
     <!-- Footer -->
     <footer class="bg-primary text-white">
         <div class="container text-center p-3">
-            
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>

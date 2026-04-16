@@ -10,7 +10,6 @@
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
     <style>
         html, body {
             height: 100%;
@@ -22,7 +21,6 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Layout Fix */
         .wrapper {
             min-height: 100%;
             display: flex;
@@ -96,6 +94,105 @@
         footer {
             margin-top: 0;
         }
+
+        /* 🔷 Responsive */
+
+        @media (max-width: 992px) {
+            .form-card {
+                padding: 25px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .ms-auto {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: block !important;
+                margin: 8px 0;
+            }
+
+            .content .container {
+                margin-top: 20px !important;
+                padding: 0 10px;
+            }
+
+            .form-card {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .form-title {
+                font-size: 20px;
+            }
+
+            .btn-success {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .form-card {
+                padding: 15px;
+            }
+
+            .form-title {
+                font-size: 18px;
+            }
+
+            .form-control {
+                font-size: 14px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer small {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand img {
+                width: 28px;
+            }
+
+            .form-title {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 
@@ -104,7 +201,7 @@
 <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/dashboard">
                 <img src="https://cdn-icons-png.flaticon.com/512/5063/5063397.png" alt="logo">
@@ -113,7 +210,6 @@
 
             <div class="ms-auto">
                 <a class="nav-link d-inline" href="/dashboard">Dashboard</a>
-
                 <a class="nav-link d-inline text-warning" href="/logout">Logout</a>
             </div>
         </div>
@@ -148,7 +244,6 @@
     <!-- Footer -->
     <footer class="bg-primary text-white">
         <div class="container text-center p-3">
-
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>

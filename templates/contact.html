@@ -22,7 +22,6 @@
             background: linear-gradient(135deg, #1f2c3e, #2e4a6f);
         }
 
-        /* Layout Fix */
         .wrapper {
             min-height: 100%;
             display: flex;
@@ -69,6 +68,7 @@
             justify-content: center;
             align-items: center;
             min-height: 90vh;
+            padding: 20px;
         }
 
         .contact-card {
@@ -116,6 +116,12 @@
             background-color: #0a58ca;
         }
 
+        /* 🔷 Flash Message */
+        .flash-container {
+            max-width: 520px;
+            margin: 15px auto;
+        }
+
         /* 🔷 Footer */
         footer {
             background: rgba(0,0,0,0.9);
@@ -123,20 +129,124 @@
             text-align: center;
             padding: 12px 0;
             font-size: 14px;
-            margin-top: 0;
+        }
+
+        /* 🔷 Responsive */
+
+        /* Tablet */
+        @media (max-width: 992px) {
+            .contact-card {
+                padding: 25px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            .navbar {
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .ms-auto {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                display: block !important;
+                margin: 8px 0;
+            }
+
+            .contact-container {
+                min-height: auto;
+                padding: 15px;
+            }
+
+            .contact-card {
+                padding: 20px;
+                border-radius: 12px;
+            }
+
+            .contact-card h2 {
+                font-size: 22px;
+            }
+
+            .btn-send {
+                width: 100%;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 576px) {
+
+            .contact-card {
+                padding: 15px;
+            }
+
+            .contact-card h2 {
+                font-size: 20px;
+            }
+
+            .form-control {
+                font-size: 14px;
+            }
+
+            textarea.form-control {
+                height: 90px;
+            }
+
+            footer p {
+                font-size: 13px;
+            }
+
+            footer small {
+                font-size: 11px;
+            }
+        }
+
+        /* Extra Small */
+        @media (max-width: 400px) {
+
+            .navbar-brand {
+                font-size: 16px;
+            }
+
+            .navbar-brand img {
+                height: 28px;
+            }
+
+            .contact-card h2 {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-
 <div class="wrapper">
 
     <!-- 🔷 Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-
             <a class="navbar-brand" href="/">
                 <img src="https://cdn-icons-png.flaticon.com/512/5063/5063397.png">
                 Notes Management System
@@ -149,16 +259,18 @@
             </div>
         </div>
     </nav>
-    <div>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }} mt-3">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+
+    <!-- 🔷 Flash Messages -->
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
 
     <!-- 🔷 Content -->
@@ -187,9 +299,8 @@
     </div>
 
     <!-- 🔷 Footer -->
-    <footer class="bg-black text-white">
+    <footer>
         <div class="container text-center p-3">
-            
             <p class="mb-1">Manage your notes securely and efficiently</p>
             <small>© 2026 | Developed by You using Flask & MySQL</small>
         </div>
