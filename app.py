@@ -36,11 +36,11 @@ def send_otp(email, otp):
 @app.route('/', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        email = request.form.get('email')
+        password = request.form.get('password')
 
         cursor = con.cursor()
-        cursor.execute("SELECT * FROM users WHERE username=?", (username,))
+        cursor.execute("SELECT * FROM users WHERE email=?", (email,))
         user = cursor.fetchone()
 
         if user and check_password_hash(user[3], password):
@@ -48,7 +48,7 @@ def login():
             flash("Login successful!", "success")
             return redirect('/dashboard')
         else:
-            flash("Invalid username or password", "danger")
+            flash("Invalid email or password", "danger")
             return redirect('/')
 
     return render_template("login.html")

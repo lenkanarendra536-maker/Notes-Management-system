@@ -1,318 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>About | Notes Management System</title>
+{% block title %}About | Notes Management System{% endblock %}
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+{% block css %}
+<style>
+.about-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
 
-    <!-- Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+.about-card {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
 
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+.about-card h2 {
+    font-weight: 600;
+}
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #eef2f7, #f8f9fa);
-        }
+.about-card h5 {
+    margin-top: 20px;
+    font-weight: 600;
+}
 
-        /* Layout Fix */
-        .wrapper {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
+.about-card ul {
+    padding-left: 20px;
+}
 
-        .content {
-            flex: 1;
-        }
+.about-card li {
+    margin-bottom: 6px;
+}
 
-        /* 🔷 Navbar */
-        .navbar {
-            background: linear-gradient(90deg, #0d6efd, #0a58ca);
-            padding: 12px 0;
-        }
+.about-card p,
+.about-card li {
+    line-height: 1.7;
+}
 
-        .navbar-brand {
-            font-weight: 600;
-            color: white !important;
-            display: flex;
-            align-items: center;
-        }
+.about-card .btn {
+    border-radius: 8px;
+    padding: 10px 18px;
+}
 
-        .navbar-brand img {
-            width: 35px;
-            margin-right: 10px;
-        }
+@media (max-width: 768px) {
+    .about-container {
+        margin-top: 30px;
+        margin-bottom: 35px;
+    }
 
-        .nav-link {
-            color: white !important;
-            margin-left: 20px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+    .about-card {
+        padding: 22px;
+    }
 
-        .nav-link:hover {
-            color: #dcdcdc !important;
-        }
+    .about-card h2 {
+        font-size: 22px;
+    }
 
-        /* 🔷 About Section */
-        .about-container {
-            margin-top: 60px;
-        }
+    .about-card h5 {
+        font-size: 17px;
+    }
 
-        .about-card {
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+    .about-card .btn {
+        width: 100%;
+    }
+}
 
-        .about-card h2 {
-            font-weight: 600;
-        }
+@media (max-width: 576px) {
+    .about-card {
+        padding: 18px;
+        border-radius: 12px;
+    }
 
-        .about-card h5 {
-            margin-top: 20px;
-            font-weight: 600;
-        }
+    .about-card h2 {
+        font-size: 20px;
+    }
 
-        .about-card ul {
-            padding-left: 20px;
-        }
+    .about-card p,
+    .about-card li {
+        font-size: 14px;
+    }
+}
+</style>
+{% endblock %}
 
-        .about-card li {
-            margin-bottom: 5px;
-        }
+{% block content %}
+<div class="container about-container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
 
-        .btn-primary {
-            border-radius: 8px;
-            padding: 10px;
-        }
+            <div class="about-card">
 
-        .alert {
-            border-radius: 8px;
-        }
+                <h2 class="text-center mb-4">
+                    <i class="fas fa-info-circle text-primary"></i>
+                    About Notes Management System
+                </h2>
 
-        footer {
-            margin-top: 0;
-        }
+                <p>
+                    The <strong>Notes Management System</strong> is a secure web application built using
+                    <strong>Flask (Python)</strong> and <strong>MySQL</strong>.
+                </p>
 
-        /* 🔷 Responsive Design */
+                <p>
+                    It allows users to efficiently create, manage, and organize their notes with complete privacy.
+                    Each user gets a dedicated workspace ensuring secure access.
+                </p>
 
-        /* Tablets */
-        @media (max-width: 992px) {
-            .about-container {
-                margin-top: 40px;
-            }
+                <h5>
+                    <i class="fas fa-tools text-success"></i> Features
+                </h5>
 
-            .about-card {
-                padding: 25px;
-            }
+                <ul>
+                    <li>User Registration & Login</li>
+                    <li>Secure Password Encryption</li>
+                    <li>Create, Read, Update, Delete Notes</li>
+                    <li>Forgot Password with OTP</li>
+                    <li>User-specific data access</li>
+                </ul>
 
-            .navbar-brand {
-                font-size: 18px;
-            }
+                <h5>
+                    <i class="fas fa-cogs text-warning"></i> Technologies Used
+                </h5>
 
-            .nav-link {
-                margin-left: 10px;
-                font-size: 14px;
-            }
-        }
+                <ul>
+                    <li>Frontend: HTML, CSS, Bootstrap</li>
+                    <li>Backend: Flask (Python)</li>
+                    <li>Database: MySQL</li>
+                </ul>
 
-        /* Mobile */
-        @media (max-width: 768px) {
-
-            .navbar {
-                text-align: center;
-            }
-
-            .navbar .container {
-                flex-direction: column;
-            }
-
-            .navbar-brand {
-                justify-content: center;
-                margin-bottom: 10px;
-            }
-
-            .ms-auto {
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-link {
-                display: block !important;
-                margin: 8px 0;
-            }
-
-            .about-container {
-                margin-top: 30px;
-                padding: 0 10px;
-            }
-
-            .about-card {
-                padding: 20px;
-                border-radius: 10px;
-            }
-
-            .about-card h2 {
-                font-size: 22px;
-            }
-
-            .about-card h5 {
-                font-size: 16px;
-            }
-
-            .btn-primary {
-                width: 100%;
-            }
-        }
-
-        /* Small Mobile */
-        @media (max-width: 576px) {
-
-            .about-card {
-                padding: 15px;
-            }
-
-            .about-card h2 {
-                font-size: 20px;
-            }
-
-            .about-card p,
-            .about-card li {
-                font-size: 14px;
-            }
-
-            footer p {
-                font-size: 14px;
-            }
-
-            footer small {
-                font-size: 12px;
-            }
-        }
-
-        /* Extra Small */
-        @media (max-width: 400px) {
-
-            .navbar-brand {
-                font-size: 16px;
-            }
-
-            .navbar-brand img {
-                width: 28px;
-            }
-
-            .about-card h2 {
-                font-size: 18px;
-            }
-
-            .about-card h5 {
-                font-size: 14px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="wrapper">
-
-    <!-- 🔷 Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-
-            <a class="navbar-brand" href="/">
-                <img src="https://cdn-icons-png.flaticon.com/512/5063/5063397.png">
-                Notes Management System
-            </a>
-
-            <div class="ms-auto">
-                <a class="nav-link d-inline" href="/">Home</a>
-                <a class="nav-link d-inline" href="/about">About</a>
-                <a class="nav-link d-inline" href="/contact">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 🔷 Content -->
-    <div class="content mb-5">
-        <div class="container about-container">
-
-            <!-- Flash Messages -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }} mt-3">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-
-            <div class="col-md-8 mx-auto">
-                <div class="about-card">
-
-                    <h2 class="text-center mb-4">
-                        <i class="fas fa-info-circle text-primary"></i>
-                        About Notes Management System
-                    </h2>
-
-                    <p>
-                        The <strong>Notes Management System</strong> is a secure web application built using
-                        <strong>Flask (Python)</strong> and <strong>MySQL</strong>.
-                    </p>
-
-                    <p>
-                        It allows users to efficiently create, manage, and organize their notes with complete privacy.
-                        Each user gets a dedicated workspace ensuring secure access.
-                    </p>
-
-                    <h5><i class="fas fa-tools text-success"></i> Features</h5>
-                    <ul>
-                        <li>User Registration & Login</li>
-                        <li>Secure Password Encryption</li>
-                        <li>Create, Read, Update, Delete Notes</li>
-                        <li>Forgot Password with OTP</li>
-                        <li>User-specific data access</li>
-                    </ul>
-
-                    <h5><i class="fas fa-cogs text-warning"></i> Technologies Used</h5>
-                    <ul>
-                        <li>Frontend: HTML, CSS, Bootstrap</li>
-                        <li>Backend: Flask (Python)</li>
-                        <li>Database: MySQL</li>
-                    </ul>
-
-                    <div class="text-center">
-                        <a href="/dashboard" class="btn btn-primary mt-3">
+                <div class="text-center mt-4">
+                    {% if session.get('user_id') %}
+                        <a href="/dashboard" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> Back to Dashboard
                         </a>
-                    </div>
-
+                    {% else %}
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-user"></i> Login Now
+                        </a>
+                    {% endif %}
                 </div>
+
             </div>
 
         </div>
     </div>
-
-    <!-- 🔻 Footer -->
-    <footer class="bg-primary text-white">
-        <div class="container text-center p-3">
-            <p class="mb-1">Manage your notes securely and efficiently</p>
-            <small>© 2026 | Developed by You using Flask & MySQL</small>
-        </div>
-    </footer>
-
 </div>
-
-</body>
-</html>
+{% endblock %}

@@ -1,334 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Notes Management System</title>
+{% block title %}Dashboard | Notes Management System{% endblock %}
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+{% block css %}
+<style>
+.dashboard-container {
+    margin-top: 30px;
+}
 
-    <!-- Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+.welcome-box {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 35px;
+}
 
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+.action-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #eef2f7, #f8f9fa);
-        }
+.note-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    height: 100%;
+}
 
-        .wrapper {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
+.note-content {
+    font-size: 14px;
+    color: #6c757d;
+    overflow: hidden;
+}
 
-        .content {
-            flex: 1;
-        }
+.note-date {
+    font-size: 12px;
+    color: gray;
+    margin-top: 10px;
+}
 
-        /* Navbar */
-        .navbar {
-            background: linear-gradient(90deg, #0d6efd, #0a58ca);
-            padding: 12px 0;
-        }
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        margin-top: 20px;
+    }
 
-        .navbar-brand {
-            font-weight: bold;
-            color: white !important;
-            display: flex;
-            align-items: center;
-        }
+    .welcome-box {
+        margin-top: 25px;
+    }
 
-        .navbar-brand img {
-            width: 35px;
-            margin-right: 10px;
-        }
+    .action-card,
+    .note-card {
+        padding: 18px;
+    }
 
-        .nav-link {
-            color: white !important;
-            font-weight: 500;
-            margin-left: 20px;
-        }
+    form.d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+{% endblock %}
 
-        /* Sections */
-        .welcome-box {
-            text-align: center;
-            margin-top: 50px;
-            margin-bottom: 40px;
-        }
+{% block content %}
+<div class="container dashboard-container">
 
-        .action-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+    <h4 class="mb-3">Your Notes</h4>
 
-        .note-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            min-height: 260px;
-        }
+    <!-- Search -->
+    <form method="GET" action="/dashboard" class="d-flex mb-4">
+        <input type="text" name="search"
+               value="{{ request.args.get('search','') }}"
+               class="form-control me-2"
+               placeholder="Search notes...">
+        <button class="btn btn-primary">
+            <i class="fas fa-search"></i> Search
+        </button>
+    </form>
 
-        .note-content {
-            font-size: 14px;
-            color: #6c757d;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+    {% if notes %}
+    <div class="row g-4">
+        {% for note in notes %}
+        <div class="col-12 col-sm-6 col-lg-4 d-flex">
+            <div class="note-card w-100">
 
-        .note-date {
-            font-size: 12px;
-            color: gray;
-            margin-top: 10px;
-        }
+                <h5>{{ note.title }}</h5>
 
-        footer {
-            margin-top: 0;
-        }
+                <p class="note-content">
+                    {{ note.content[:100] }}...
+                </p>
 
-        /* 🔷 Responsive */
+                <small class="note-date">
+                    {{ note.created_at }}
+                </small>
 
-        /* Tablet */
-        @media (max-width: 992px) {
-            .nav-link {
-                margin-left: 10px;
-                font-size: 14px;
-            }
+                <div class="mt-auto d-flex gap-2 pt-3 flex-wrap">
+                    <a href="/viewnotes/{{ note.id }}" class="btn btn-primary btn-sm">View</a>
+                    <a href="/updatenote/{{ note.id }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/deletenote/{{ note.id }}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
 
-            .action-card {
-                padding: 25px;
-            }
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-
-            .navbar {
-                text-align: center;
-            }
-
-            .navbar .container {
-                flex-direction: column;
-            }
-
-            .navbar-brand {
-                justify-content: center;
-                margin-bottom: 10px;
-            }
-
-            .ms-auto {
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-link {
-                display: block !important;
-                margin: 8px 0;
-            }
-
-            /* Search bar stack */
-            form.d-flex {
-                flex-direction: column;
-            }
-
-            form.d-flex input {
-                margin-bottom: 10px;
-            }
-
-            /* Notes grid */
-            .col-md-4 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            /* Action cards */
-            .col-md-3 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            .welcome-box {
-                margin-top: 30px;
-            }
-        }
-
-        /* Small Mobile */
-        @media (max-width: 576px) {
-
-            .note-card {
-                padding: 15px;
-            }
-
-            .note-content {
-                font-size: 13px;
-            }
-
-            .action-card {
-                padding: 20px;
-            }
-
-            footer p {
-                font-size: 14px;
-            }
-
-            footer small {
-                font-size: 12px;
-            }
-        }
-
-        /* Extra Small */
-        @media (max-width: 400px) {
-
-            .navbar-brand {
-                font-size: 16px;
-            }
-
-            .navbar-brand img {
-                width: 28px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="wrapper">
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://cdn-icons-png.flaticon.com/512/5063/5063397.png">
-                Notes Management System
-            </a>
-
-            <div class="ms-auto">
-                <a class="nav-link d-inline" href="/dashboard">Dashboard</a>
-                <a class="nav-link d-inline" href="/addnote">Add Notes</a>
-                <a class="nav-link d-inline text-warning" href="/logout">Logout</a>
             </div>
         </div>
-    </nav>
+        {% endfor %}
+    </div>
 
-    <!-- Content -->
-    <div class="content mb-5">
+    {% else %}
+    <div class="text-center mt-5">
+        <p class="text-muted">No matching notes found</p>
+        <a href="/addnote" class="btn btn-primary">Create Note</a>
+    </div>
+    {% endif %}
 
-        <div class="container mt-4">
-            <h4 class="mb-3">Your Notes</h4>
+    <!-- Welcome Section -->
+    <div class="welcome-box">
+        <h2>Welcome to Dashboard 🎉</h2>
+        <p class="text-muted">Manage your notes efficiently and securely</p>
+    </div>
 
-            <!-- Search -->
-            <form method="GET" action="/dashboard" class="d-flex mb-4">
-                <input type="text" name="search"
-                       value="{{ request.args.get('search','') }}"
-                       class="form-control me-2"
-                       placeholder="Search notes...">
-                <button class="btn btn-primary">
-                    <i class="fas fa-search"></i> Search
-                </button>
-            </form>
+    <!-- Action Cards -->
+    <div class="row g-4 justify-content-center">
 
-            {% if notes %}
-            <div class="row g-4">
-
-                {% for note in notes %}
-                <div class="col-md-4 col-sm-6 d-flex">
-                    <div class="note-card w-100">
-
-                        <h5>{{ note.title }}</h5>
-
-                        <p class="note-content">
-                            {{ note.content[:100] }}...
-                        </p>
-
-                        <small class="note-date">
-                            {{ note.created_at }}
-                        </small>
-
-                        <div class="mt-auto d-flex gap-2 pt-3 flex-wrap">
-                            <a href="/viewnotes/{{ note.id }}" class="btn btn-primary btn-sm">View</a>
-                            <a href="/updatenote/{{ note.id }}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="/deletenote/{{ note.id }}" class="btn btn-danger btn-sm">Delete</a>
-                        </div>
-
-                    </div>
-                </div>
-                {% endfor %}
-
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="action-card">
+                <i class="fas fa-plus-circle text-primary"></i>
+                <h5>Add Note</h5>
+                <p class="text-muted">Create and save new notes</p>
+                <a href="/addnote" class="btn btn-primary">Add</a>
             </div>
-
-            {% else %}
-            <div class="text-center mt-5">
-                <p class="text-muted">No matching notes found</p>
-                <a href="/addnote" class="btn btn-primary">Create Note</a>
-            </div>
-            {% endif %}
         </div>
 
-        <!-- Welcome -->
-        <div class="container">
-            <div class="welcome-box">
-                <h2>Welcome to Dashboard 🎉</h2>
-                <p class="text-muted">Manage your notes efficiently and securely</p>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="action-card">
+                <i class="fas fa-book text-info"></i>
+                <h5>View Notes</h5>
+                <p class="text-muted">Browse all your notes</p>
+                <a href="/viewall" class="btn btn-info text-white">View</a>
             </div>
+        </div>
 
-            <div class="row g-4 justify-content-center">
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="action-card">
-                        <i class="fas fa-plus-circle text-primary"></i>
-                        <h5>Add Note</h5>
-                        <p class="text-muted">Create and save new notes</p>
-                        <a href="/addnote" class="btn btn-primary">Add</a>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="action-card">
-                        <i class="fas fa-book text-info"></i>
-                        <h5>View Notes</h5>
-                        <p class="text-muted">Browse all your notes</p>
-                        <a href="/viewall" class="btn btn-info text-white">View</a>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="action-card">
-                        <i class="fas fa-sign-out-alt text-danger"></i>
-                        <h5>Logout</h5>
-                        <p class="text-muted">Securely logout</p>
-                        <a href="/logout" class="btn btn-danger">Logout</a>
-                    </div>
-                </div>
-
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="action-card">
+                <i class="fas fa-sign-out-alt text-danger"></i>
+                <h5>Logout</h5>
+                <p class="text-muted">Securely logout</p>
+                <a href="/logout" class="btn btn-danger">Logout</a>
             </div>
         </div>
 
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white">
-        <div class="container text-center p-3">
-            <p class="mb-1">Manage your notes securely and efficiently</p>
-            <small>© 2026 | Developed by You using Flask & MySQL</small>
-        </div>
-    </footer>
-
 </div>
-
-</body>
-</html>
+{% endblock %}
