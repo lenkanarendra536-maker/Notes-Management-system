@@ -33,14 +33,14 @@
 
 
     /* Update Note Button Custom Color */
-    .btn-warning {
+    .btn-custom {
         background: #2563eb;
         border: none;
-        color: white;
+        color: rgb(255, 255, 255);
         transition: 0.3s ease;
     }
 
-    .btn-warning:hover {
+    .btn-custom:hover {
         background: #1d4ed8;
         color: white;
     }
@@ -92,7 +92,7 @@
             <div class="form-card">
 
                 <h3 class="form-title text-center">
-                    <i class="fas fa-edit text-warning"></i> Edit Note
+                    <i class="fas fa-edit text-primary"></i> Edit Note
                 </h3>
 
                 <form method="POST">
@@ -101,7 +101,7 @@
                     <textarea name="content" class="form-control mb-3" rows="6" required>{{ note.content }}</textarea>
 
                     <div class="d-grid gap-2">
-                        <button class="btn btn-warning">
+                        <button class="btn btn-custom">
                             <i class="fas fa-save"></i> Update Note
                         </button>
 
