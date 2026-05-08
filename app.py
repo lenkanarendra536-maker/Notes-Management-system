@@ -63,6 +63,18 @@ def register():
         password = generate_password_hash(request.form['password'])
 
         cursor = con.cursor()
+
+        # Check duplicate username or email
+        cursor.execute(
+            "SELECT * FROM users WHERE username=? OR email=?",
+            (username, email)
+        )
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            flash("Username or email already exists. Please try another.", "danger")
+            return redirect('/register')
+
         cursor.execute(
             "INSERT INTO users(username,email,password) VALUES(?,?,?)",
             (username,email,password)
@@ -73,7 +85,6 @@ def register():
         return redirect('/')
 
     return render_template("register.html")
-
 
 # ---------------- DASHBOARD (FIXED SEARCH) ----------------
 @app.route('/dashboard')
