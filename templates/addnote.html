@@ -4,67 +4,74 @@
 
 {% block css %}
 <style>
-.addnote-container {
-    margin-top: 45px;
-    margin-bottom: 50px;
-}
-
-.addnote-card {
-    background: white;
-    padding: 32px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.addnote-card h3 {
-    font-weight: 600;
-    margin-bottom: 22px;
-}
-
-.addnote-card .form-control {
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.addnote-card textarea {
-    resize: none;
-    min-height: 170px;
-}
-
-.addnote-card .btn-success {
-    border-radius: 8px;
-    padding: 10px;
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
     .addnote-container {
-        margin-top: 25px;
-        padding: 0 12px;
+        margin-top: 45px;
+        margin-bottom: 50px;
     }
 
     .addnote-card {
-        padding: 22px;
+        background: white;
+        padding: 32px;
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     .addnote-card h3 {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 480px) {
-    .addnote-card {
-        padding: 18px;
+        font-weight: 600;
+        margin-bottom: 22px;
+        color: #0f172a;
     }
 
-    .addnote-card h3 {
-        font-size: 20px;
+    .addnote-card .form-control {
+        border-radius: 8px;
+        padding: 10px;
     }
 
     .addnote-card textarea {
-        min-height: 140px;
+        resize: none;
+        min-height: 170px;
     }
-}
+
+    .addnote-card .btn-primary {
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 500;
+    }
+
+    .dashboard-btn {
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .addnote-container {
+            margin-top: 25px;
+            padding: 0 12px;
+        }
+
+        .addnote-card {
+            padding: 22px;
+        }
+
+        .addnote-card h3 {
+            font-size: 22px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .addnote-card {
+            padding: 18px;
+        }
+
+        .addnote-card h3 {
+            font-size: 20px;
+        }
+
+        .addnote-card textarea {
+            min-height: 140px;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -74,26 +81,32 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
 
             <div class="addnote-card">
+
+                <!-- Dashboard Button -->
+                <div class="mb-3">
+                    <a href="/dashboard" class="btn btn-outline-secondary btn-sm dashboard-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+
+                <!-- Heading -->
                 <h3 class="text-center">
                     <i class="fas fa-plus-circle text-success"></i> Add New Note
                 </h3>
 
                 <form method="POST">
-                    <input type="text"
-                           name="title"
-                           class="form-control mb-3"
-                           placeholder="Enter title"
-                           required>
 
-                    <textarea name="content"
-                              class="form-control mb-3"
-                              placeholder="Write your note here..."
-                              required></textarea>
+                    <input type="text" name="title" class="form-control mb-3" placeholder="Enter title" required>
+
+                    <textarea name="content" class="form-control mb-3" placeholder="Write your note here..."
+                        required></textarea>
 
                     <button class="btn btn-primary w-100">
                         <i class="fas fa-save"></i> Save Note
                     </button>
+
                 </form>
+
             </div>
 
         </div>
